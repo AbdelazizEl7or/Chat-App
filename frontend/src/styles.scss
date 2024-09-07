@@ -1,0 +1,486 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/font-awesome/css/font-awesome.css";
+@import "bootstrap/scss/bootstrap.scss";
+
+@import "animate.css/animate";
+.loaderz {
+  .containerz {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+  }
+
+  .dash {
+    margin: 0 15px;
+    width: 35px;
+    height: 15px;
+    border-radius: 8px;
+    background: #00f1ff;
+    box-shadow: 0 0 10px 0 #fecdff;
+  }
+
+  .uno {
+    margin-right: -18px;
+    transform-origin: center left;
+    animation: spin 3s linear infinite;
+  }
+
+  .dos {
+    transform-origin: center right;
+    animation: spin2 3s linear infinite;
+    animation-delay: 0.2s;
+  }
+
+  .tres {
+    transform-origin: center right;
+    animation: spin3 3s linear infinite;
+    animation-delay: 0.3s;
+  }
+
+  .cuatro {
+    transform-origin: center right;
+    animation: spin4 3s linear infinite;
+    animation-delay: 0.4s;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(360deg);
+    }
+    30% {
+      transform: rotate(370deg);
+    }
+    35% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin2 {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(0deg);
+    }
+    30% {
+      transform: rotate(-180deg);
+    }
+    35% {
+      transform: rotate(-190deg);
+    }
+    40% {
+      transform: rotate(-180deg);
+    }
+    78% {
+      transform: rotate(-180deg);
+    }
+    95% {
+      transform: rotate(-360deg);
+    }
+    98% {
+      transform: rotate(-370deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes spin3 {
+    0% {
+      transform: rotate(0deg);
+    }
+    27% {
+      transform: rotate(0deg);
+    }
+    40% {
+      transform: rotate(180deg);
+    }
+    45% {
+      transform: rotate(190deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    62% {
+      transform: rotate(180deg);
+    }
+    75% {
+      transform: rotate(360deg);
+    }
+    80% {
+      transform: rotate(370deg);
+    }
+    85% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin4 {
+    0% {
+      transform: rotate(0deg);
+    }
+    38% {
+      transform: rotate(0deg);
+    }
+    60% {
+      transform: rotate(-360deg);
+    }
+    65% {
+      transform: rotate(-370deg);
+    }
+    75% {
+      transform: rotate(-360deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  .mlf {
+    * {
+      border: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    .body {
+      //--bg: #e3e4e8;
+      --fg: #a89e05;
+      --primary: #255ff4;
+      font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
+      background: var(--bg);
+      display: grid;
+      margin-top: 32px;
+      font: 1em/1.5 sans-serif;
+      place-items: center;
+    }
+
+    .hourglass,
+    .hourglass:before,
+    .hourglass:after {
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+    .hourglass {
+      --polygonH: polygon(
+        0% 0%,
+        100% 0%,
+        100% 5.55%,
+        95% 5.55%,
+        95% 28%,
+        60% 46%,
+        60% 54%,
+        95% 72%,
+        95% 94.45%,
+        100% 94.45%,
+        100% 100%,
+        0% 100%,
+        0% 94.45%,
+        5% 94.45%,
+        5% 72%,
+        40% 54%,
+        40% 46%,
+        5% 28%,
+        5% 5.55%,
+        0% 5.55%
+      );
+      animation-name: flip;
+      animation-timing-function: ease-in-out;
+      background-image: linear-gradient(var(--primary) 0.5em, #737a8c55 0.5em 8.5em, var(--primary) 8.5em);
+      clip-path: var(--polygonH);
+      -webkit-clip-path: var(--polygonH);
+      overflow: hidden;
+      position: relative;
+      width: 5em;
+      height: 9em;
+      z-index: 0;
+    }
+    .hourglass:before,
+    .hourglass:after {
+      animation-timing-function: linear;
+      content: "";
+      display: block;
+      position: absolute;
+    }
+    .hourglass:before {
+      --polygonB1: polygon(
+        0% 0%,
+        100% 0%,
+        100% 24%,
+        50% 47%,
+        50% 47%,
+        50% 47%,
+        50% 47%,
+        50% 47%,
+        50% 47%,
+        50% 47%,
+        50% 47%,
+        0% 24%
+      );
+      --polygonB2: polygon(
+        0% 4%,
+        100% 4%,
+        100% 24%,
+        55% 45%,
+        55% 100%,
+        55% 100%,
+        55% 100%,
+        45% 100%,
+        45% 100%,
+        45% 100%,
+        45% 45%,
+        0% 24%
+      );
+      --polygonB3: polygon(
+        0% 24%,
+        100% 24%,
+        100% 24%,
+        55% 45%,
+        55% 80%,
+        100% 100%,
+        100% 100%,
+        0% 100%,
+        0% 100%,
+        45% 80%,
+        45% 45%,
+        0% 24%
+      );
+      --polygonB4: polygon(
+        45% 45%,
+        55% 45%,
+        55% 45%,
+        55% 45%,
+        55% 58%,
+        100% 76%,
+        100% 100%,
+        0% 100%,
+        0% 76%,
+        45% 58%,
+        45% 45%,
+        45% 45%
+      );
+      --polygonB5: polygon(
+        50% 53%,
+        50% 53%,
+        50% 53%,
+        50% 53%,
+        50% 53%,
+        100% 76%,
+        100% 100%,
+        0% 100%,
+        0% 76%,
+        50% 53%,
+        50% 53%,
+        50% 53%
+      );
+      animation-name: fill;
+      background-color: var(--fg);
+      background-size: 100% 3.6em;
+      clip-path: var(--polygonB1);
+      -webkit-clip-path: var(--polygonB1);
+      top: 0.5em;
+      left: 0.5em;
+      width: 4em;
+      height: 8em;
+      z-index: 1;
+    }
+    .hourglass:after {
+      animation-name: glare;
+      background:
+        linear-gradient(
+            90deg,
+            #0000 0.5em,
+            #0003 0.5em 1.5em,
+            #0000 1.5em 3.5em,
+            #fff3 3.5em 4.5em,
+            #fff0 4.5em 6.5em,
+            #0003 6.5em 7.5em,
+            #0000 7.5em
+          )
+          0 0 / 100% 0.5em,
+        linear-gradient(
+            90deg,
+            #0000 0.75em,
+            #0003 0.75em 1.25em,
+            #0000 1.25em 3.75em,
+            #fff3 3.75em 4.25em,
+            #fff0 4.25em 6.75em,
+            #0003 6.75em 7.25em,
+            #0000 7.25em
+          )
+          0 0.5em / 100% 8em,
+        linear-gradient(
+            90deg,
+            #0000 0.5em,
+            #0003 0.5em 1.5em,
+            #0000 1.5em 3.5em,
+            #fff3 3.5em 4.5em,
+            #fff0 4.5em 6.5em,
+            #0003 6.5em 7.5em,
+            #0000 7.5em
+          )
+          0 100% / 100% 0.5em;
+      background-repeat: repeat-x;
+      top: 0;
+      left: -3em;
+      width: 200%;
+      height: 100%;
+      z-index: 2;
+    }
+    /* Animations */
+    @keyframes fill {
+      from {
+        clip-path: var(--polygonB1);
+        -webkit-clip-path: var(--polygonB1);
+      }
+      10% {
+        clip-path: var(--polygonB2);
+        -webkit-clip-path: var(--polygonB2);
+      }
+      45% {
+        clip-path: var(--polygonB3);
+        -webkit-clip-path: var(--polygonB3);
+      }
+      80% {
+        clip-path: var(--polygonB4);
+        -webkit-clip-path: var(--polygonB4);
+      }
+      85%,
+      to {
+        clip-path: var(--polygonB5);
+        -webkit-clip-path: var(--polygonB5);
+      }
+    }
+    @keyframes glare {
+      from,
+      90% {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(3em);
+      }
+    }
+    @keyframes flip {
+      from,
+      90% {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(180deg);
+      }
+    }
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #17181c;
+        --fg: #c7cad1;
+      }
+    }
+  }
+}
+.diil {
+  position: fixed;
+  left: 36%;
+  top: 0;
+}
+.calll {
+  .lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+}
+#emojy {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999999999999999999999999999999999999999999999999999999999999999999999999;
+}
+// nb-chat-message:after {
+//   font: normal normal normal 14px/1 FontAwesome;
+//   font-size: inherit;
+//   text-rendering: auto;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   justify-content: center;
+//   content: "\f1f8";
+//   background-color: red;
+//   width: 50px;
+//   height: 50px;
+//   border-radius: 8px;
+//   position: relative;
+//   top: 0px;
+//   color: black;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   cursor: pointer;
+// }
+emoji-picker {
+  --num-columns: 6;
+  --emoji-size: 1rem;
+  --background: gray;
+}
+nb-chat-message-text .text {
+  font-size: 1rem;
+  line-height: 1.1;
+}

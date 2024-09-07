@@ -1,0 +1,458 @@
+<div id="emojy" [style.display]="omaijyopem?'block':'none'"></div>
+<div style="width: 100%; height: 100%;    z-index: 100000051; position: fixed;left: 0; top: 0;"
+  (click)="omaijyopem =false" [style.display]="omaijyopem?'block':'none'"></div>
+
+<!-- Button trigger modal -->
+<button id="callout" type="button" class="btn btn-primary  d-none" data-bs-toggle="modal"
+  data-bs-target="#exampleModal1">
+</button>
+
+<button id="callin" type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+</button>
+
+<button id="incallMe" type="button" class="btn btn-primary d-none" data-bs-toggle="modal"
+  data-bs-target="#exampleModal3">
+</button>
+
+<div *ngIf="!inCall">
+  <!-- Modal -->
+  <div data-bs-backdrop="static" class="modal fade" *ngIf="startCall" id="exampleModal1" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-bg-dark">
+        <div class="modal-header">
+          <img src="{{callingMa.image}}" width="50px" height="50px">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{callingMa.name}}</h1>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body" style="
+      text-align: center;">
+          <h5 class="card-title" *ngIf="!closed" style="color: green;">Calling ...</h5>
+          <h5 class="card-title" *ngIf="closed" style="color: red;">Canceled</h5>
+          <div class="calll">
+            <div *ngIf="!closed" class="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="close()" class="btn btn-danger" data-bs-dismiss="modal"> <svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-bs-backdrop="static" class="modal fade" *ngIf="caller" id="exampleModal2" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-bg-dark">
+        <div class="modal-header">
+          <img src="{{caller.image}}" width="50px" height="50px">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{caller.name}}</h1>
+          <button type="button" id="callincloase" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="
+      text-align: center;">
+          <h4>{{caller.name}} Call You</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success btn-pulse btn-floating btn-lg animate__animated animate__shakeX "
+            style="width: 50px; --animate-repeat: 20;
+            --animation-delay: 2s;
+        height: 50px;" (click)="answr()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-phone">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+          </button>
+          <button (click)="close()" style="width: 50px;
+        height: 50px;" type="button" class="btn btn-danger" data-bs-dismiss="modal"> <svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="inCall">
+  <!-- Modal -->
+  <div data-bs-backdrop="static" class="modal fade" *ngIf="startCall" id="exampleModal3" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-bg-dark">
+        <div class="modal-header">
+          <img src="{{callingMa ?callingMa.image:caller.image}}" width="50px" height="50px">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{callingMa ?callingMa.name:caller.name}}</h1>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body" style="
+      text-align: center;">
+          <div class="callll">
+            <img src="{{callingMa ?callingMa.image:caller.image}}" width="200px" height="200px"
+              style="border-radius: 50%; padding: 40px;">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeinme" (click)="close()" class="btn btn-danger" data-bs-dismiss="modal"> <svg
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="ManSend" (click)="openOne(ManSend.id);ManSend=null;this.toggle();"
+  style="position: fixed;cursor: pointer; right: 0;top: 0;z-index: 99999999999999999999999999999;width: 300px;display: flex;justify-content: end;background-color: #222b45;padding: 5px 20px 20px 20px;border-radius: 16px;box-shadow: 0px 0px 20px;">
+  <span>
+    <div>{{ManSend.name}}</div>
+    <div>{{ManSend.text}}</div>
+  </span>
+  <nb-icon icon="email" style="
+  font-size: 40px;
+"></nb-icon>
+</div>
+<div class="loaderz animate__animated animate__fadeIn" *ngIf="loading" style="
+width: 100%;
+height: 100%;
+position: fixed;
+left: 0;
+top: 0;
+background-color: black;
+z-index: 99999999999;
+display: flex;
+align-items: center;
+justify-content: center;
+">
+  <div>
+
+    <div class="containerz">
+      <div class="dash uno"></div>
+      <div class="dash dos"></div>
+      <div class="dash tres"></div>
+      <div class="dash cuatro"></div>
+    </div>
+
+    <div class="mlf">
+      <div class="body">
+        <div class="hourglass"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="userData">
+  <nb-layout size="large" [nbSpinner]="loading" nbSpinnerStatus="info" nbSpinnerSize="large" nbSpinnerMessage="">
+    <nb-layout-header fixed>
+      &nbsp;
+      <button class=" animate__animated  animate__heartBeat animate__delay-1s animate__repeat-2" nbButton
+        [status]="!sidebar ?'success':'danger'" size="medium" (click)="toggle()">
+        <nb-icon [icon]="!sidebar ?'menu-2':'close'"></nb-icon>
+      </button>
+      &nbsp;&nbsp;&nbsp;
+      <button (click)="tab = 'chat'" nbButton class="d-none d-sm-block" status="info" size="medium">
+        <nb-icon icon="email"></nb-icon> Chat
+      </button>
+      &nbsp;&nbsp;
+      <button (click)="tab = 'profile'" class="d-none d-sm-block" nbButton status="info" size="medium">
+        <nb-icon icon="person-outline"></nb-icon> Profile
+      </button>
+    </nb-layout-header>
+    <nb-sidebar [fixed]="window.innerWidth <=800" state="collapsed" [right]="rtl"
+      style="transition: .2s all ease-in-out;">
+
+      <div *ngIf="users && sidebar">
+        <button style="margin-bottom: 20px;" nbButton [status]="!groupOpen ?'info':'danger'" size="medium"
+          (click)="groupOpen=!groupOpen;onOpenAddGroup();toggle()">
+          <nb-icon *ngIf="groupOpen" icon="close"></nb-icon>
+          <p *ngIf="!groupOpen" style="
+        margin: 0;
+        ">
+            {{transl.create+' '+transl.group}}
+          </p>
+        </button>
+        <button (click)="tab = 'chat';toggle()" nbButton class="d-block d-sm-none my-2" status="info" size="medium">
+          <nb-icon icon="email"></nb-icon> Chat
+        </button>
+        <button (click)="tab = 'profile';toggle()" class="d-block d-sm-none my-2" nbButton status="info" size="medium">
+          <nb-icon icon="person-outline"></nb-icon> Profile
+        </button>
+        <div class="animate__animated" style="
+        display: flex;
+        margin-bottom: 10px;
+    " *ngFor="let user of users;index as i" [id]="user._id" (click)="openOne(i)">
+          <nb-user [badgeText]="user.id!=userData.id?user.status:''"
+            [badgeStatus]="user.status =='online'?'success':user.status == 'Group' ?'info' :'danger'" badgePosition="bottom right" style="
+          width: 100%;
+      " [class]="index==i?'active':''" size="large" name="{{user.id!=userData.id?user.name:'You'}}" color="black"
+            picture="{{user.image}}">
+          </nb-user>
+        </div>
+      </div>
+    </nb-sidebar>
+
+    <nb-layout-column class="colored-column-info" style="
+    padding-top: 8px;
+">
+      <div *ngIf="users&&groupOpen" class="animate__animated animate__tada">
+        <nb-card [status]="name.value&&group.length!==1?'info':'warning'">
+          <nb-card-header><button nbButton [status]="!groupOpen ?'info':'danger'" size="medium"
+              (click)="groupOpen=!groupOpen;">
+              <nb-icon icon="close"></nb-icon>
+            </button>&nbsp;&nbsp;{{transl.create}} {{transl.group}}</nb-card-header>
+          <nb-card-body>
+            <input type="text" #name nbInput (keyup)="name.value=$any($event.target).value"
+              placeholder="{{!rtl?transl.group:transl.name}} {{!rtl?transl.name:'ال'+transl.group}}">
+            <br>
+            <br>
+            group
+            <p>
+              {{rtl?'يمكن لأي أحد الدخول في المجموعة':'can any one open this group'}}
+              <nb-checkbox status="info" (checkedChange)="group.length==0?group=myGroup:group=[]"
+                [checked]="group.length==0"></nb-checkbox>
+            </p>
+            <br>
+            <div *ngFor="let user of users;index as i" [style.pointerEvents]="user.id==userData.id?'none':'all'"
+              (click)="addInGroup(i)">
+              <nb-user *ngIf="!user.users" [class]="getActive(i)?'active':''" size="large" name="{{user.name}}"
+                color="black" picture="{{user.image}}">
+              </nb-user>
+            </div>
+            <br>
+            <br>
+            <br>
+            <span style="color:red" *ngIf="!name.value">name is Requird</span>
+            <span style="color:red" *ngIf="group.length==1">must be users big than 1</span>
+            <br>
+            <button nbButton [status]="name.value?'info':'danger'" size="medium" (click)="addG(name.value)"
+              *ngIf="name.value&&group.length!==1">
+              {{transl.create}} {{transl.group}}
+            </button>
+            <button nbButton [status]="name.value?'info':'danger'" size="medium" *ngIf="!name.value||group.length==1"
+              disabled="true">
+              {{transl.create}} {{transl.group}}
+            </button>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <div *ngIf="users&&groupeditOpen" class="animate__animated animate__tada">
+        <nb-card [status]="name.value&&group.length!==1?'info':'warning'">
+          <nb-card-header><button nbButton [status]="!groupeditOpen ?'info':'danger'" size="medium"
+              (click)="groupeditOpen=!groupeditOpen;">
+              <nb-icon icon="close"></nb-icon>
+            </button>&nbsp;&nbsp;{{transl.edit}} {{transl.group}}</nb-card-header>
+          <nb-card-body>
+            <input type="text" [value]="currentgroup.name" #name nbInput (keyup)="name.value=$any($event.target).value"
+              placeholder="{{!rtl?transl.group:transl.name}} {{!rtl?transl.name:'ال'+transl.group}}">
+            <br>
+            <button nbButton hero status="info" *ngIf="!uploadedFileUrl" class="form-control form-control-lg"
+              uploadButton [uploadComplete]="onCompleteImage" [uploadOptions]="options" [uploader]="uploader"
+              id="formFileLg" type="file"  style="
+              margin-top: 10px;
+              margin-bottom: 10px;
+               width: 200px;
+                 height: 70px;
+          ">
+          <p class="m-0">
+            <img [src]="image" style="width: 50px; border: 1px solid white; border-radius: 5%;" >
+
+            {{rtl?'تغير الصورة':'change Image'}}
+          </p>
+            </button>
+           
+            <br>
+            <p>
+              {{rtl?'يمكن لأي أحد الدخول في المجموعة':'can any one open this group'}}
+              <nb-checkbox status="info" (checkedChange)="group.length==0?group=myGroup:group=[]"
+                [checked]="group.length==0"></nb-checkbox>
+            </p>
+            <br>
+            <div *ngFor="let user of users;index as i" [style.pointerEvents]="user.id==userData.id?'none':'all'"
+              (click)="addInGroup(i)">
+              <nb-user *ngIf="!user.users" [class]="getActive(i)?'active':''" size="large" name="{{user.name}}"
+                color="black" picture="{{user.image}}">
+              </nb-user>
+            </div>
+            <br>
+            <br>
+            <br>
+            <button nbButton [status]="name.value?'info':'danger'" size="medium" (click)="editG(name.value)"
+              *ngIf="name.value&&group.length!==1">
+              {{transl.edit}} {{transl.group}}
+            </button>
+            <span style="color:red" *ngIf="!name.value">name is Requird</span>
+            <span style="color:red" *ngIf="group.length==1">must be users big than 1</span>
+            <br>
+            <button nbButton [status]="name.value?'info':'danger'" size="medium" *ngIf="!name.value||group.length==1"
+              disabled="true">
+              {{transl.edit}} {{transl.group}}
+            </button>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <ng-container *ngIf="tab =='chat'" responsive>
+        <div *ngIf="selMan">
+
+          <nb-chat [scrollBottom]="true" *ngIf="show" status="info" size="medium">
+            <ng-template nbChatTitle [context]="{ text: 'some text to pass into template' }" let-data>
+              <div class="d-flex justify-content-between">
+                <div>
+                  <nb-user *ngIf="selMan" [badgeText]="selMan.id!=userData.id?selMan.status:''"
+                    [badgeStatus]="selMan.status =='online'?'success':'danger'" badgePosition="bottom right" style="
+          width: 100%;
+          pointer-events: none;
+          margin-bottom: 2px;
+          " size="large" name="{{selMan.id!=userData.id?selMan.name:'You'}}" color="black" picture="{{selMan.image}}">
+                  </nb-user>
+                  <p #tt *ngIf="selMan && selMan.id!=userData.id">{{selMan.status =='offline' &&selMan.inDate ?'last
+                    online
+                    in
+                    '+formatDate(selMan.inDate):selMan.status =='online'?'online':''}}</p>
+                </div>
+                <div class="my-2" style="display: flex;justify-content: center;">
+                  <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <button class="btn btn-dark" *ngIf="recordedUrl" (click)="sendRecord()">
+                      <i class="fa fa-paper-plane" style="color: green;"></i>
+                    </button>
+                    <button class="btn btn-dark mx-2" *ngIf="recordedUrl" (click)="recordedUrl ='';dtt();">
+                      <i class="fa fa-trash" style="color: red;"></i>
+                    </button>
+                    <audio *ngIf="recordedUrl" class="mx-1" controls [src]="recordedUrl"
+                      style="    width: 110px;"></audio>
+                    <button class="btn btn-dark" (click)="recordVoice()" [class.recordingbtn]="recordstartet"><i
+                        [class.recording]="recordstartet" class="fa fa-microphone"></i>
+                    </button>
+                    <button class="btn btn-dark mx-2" *ngIf="recordstartet" (click)="stoprecord()"> <i
+                        class="fa fa-stop"></i></button>
+                    <div *ngIf="recordstartet"> {{timer}}</div>
+                  </div>
+                  <div style="
+                  display: flex;
+                  align-items: center;
+                  margin-left: 10px;
+                  margin-right: 10px;
+              ">
+                    <button *ngIf="!selMan.users && selMan._id !==userData._id" (click)="Call(selMan._id)"
+                      class="btn btn-warning">
+                      <nb-icon icon="phone-call-outline"></nb-icon>
+                    </button>
+                    <button class="btn btn-success mx-2" (click)="omaijyopem =!omaijyopem">😀</button>
+                  </div>
+                </div>
+              </div>
+
+            </ng-template>
+            <nb-chat-message *ngFor="let msg of messages" style="cursor: pointer;" [type]="msg.type"
+              [message]="msg.text" [reply]="msg.reply" [sender]="msg.user.name" [date]="msg.date" [files]="msg.files"
+              [quote]="msg.quote" [latitude]="msg.latitude" [longitude]="msg.longitude" [avatar]="msg.user.avatar"
+              [customMessageData]="msg" (dblclick)="deleteMsg(msg._id)">
+              <div></div>
+            </nb-chat-message>
+
+
+            <div *nbCustomMessage="'audio'; let msg">
+              <div>
+                <button (click)="deleteMsg(msg._id)" nbButton hero status="danger" size="small" style="
+                position: relative;
+                width: 10px !important;
+                height: 16px;
+                left: -18px;
+                top: -18px;
+            "><i class="fa fa-trash"></i></button>
+              </div>
+              <audio [src]="msg.files[0].url" controls (error)="clg(msg)"></audio>
+            </div>
+
+            <nb-chat-form [messagePlaceholder]="transl.typeMsg" [showButton]="true" (send)="sendMessage($event)"
+              [dropFiles]="true">
+            </nb-chat-form>
+          </nb-chat>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="tab=='profile'" responsive>
+        <button nbButton status="danger" size="medium" (click)="logOut()">
+          {{transl.logOut}} <nb-icon icon="log-out"></nb-icon>
+        </button>
+
+
+        &nbsp;&nbsp;&nbsp;
+        <button nbButton status="info" size="medium" (click)="changeDirection();reply();">
+          <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="ep0rzf NMm5M">
+            <path
+              d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 0 1 5.08 16zm2.95-8H5.08a7.987 7.987 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z">
+            </path>
+          </svg> &nbsp;
+          &nbsp; {{rtl?'English':'عربي'}}
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p><strong>{{rtl?'الملف الشخصي':'Profile'}}</strong></p>
+        <button nbButton hero status="info" *ngIf="!uploadedFileUrl" class="form-control form-control-lg" uploadButton
+          [uploadComplete]="onComplete" [uploadOptions]="options" [uploader]="uploader" id="formFileLg"
+          type="file" style="
+              width: 200px;
+              height: 70px;
+          ">
+          <p class="m-0">
+            <img [src]="userData.image" style="width: 50px; border: 1px solid white; border-radius: 50%;" >
+
+            {{rtl?'تغير الصورة':'change Image'}}
+          </p>
+          </button>
+        <br>
+        <hr>
+        <br>
+        <button nbButton status="primary" (click)="editName()">{{rtl?'تغير الأسم':'change Name'}}</button>
+        {{userData.name}}
+
+        <br>
+        <hr>
+        <br>
+
+        <button nbButton status="primary" (click)="editpass()">{{rtl?'تغير كلمة السر':'change
+          password'}}</button>
+        {{userData.password}}
+        <br>
+        <hr>
+        <br>
+        <h3 *ngIf="isHaveGroups()">Your groups</h3>
+        <div *ngFor="let user of users;index as i">
+          <nb-user (click)="editGroup(user._id);" *ngIf="user.addMan == userData._id" size="large" name="{{user.name}}"
+            color="black" picture="{{user.image}}">
+          </nb-user>
+        </div>
+        <br>
+        <hr *ngIf="isHaveGroups()">
+        <br>
+        <button nbButton status="danger" (click)="deleteAcc()">
+          {{rtl?'حذف الحساب نهائياً':'Delete account'}}
+        </button>
+
+      </ng-container>
+    </nb-layout-column>
+  </nb-layout>
+</div>

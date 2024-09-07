@@ -1,0 +1,88 @@
+<div *ngIf="Dopen" [class]="'animate__animated animate__lightSpeedInLeft d-flex justify-content-center align-items-center h-100'">
+  <nb-card accent="danger" size="small" [nbSpinner]="loading" nbSpinnerStatus="danger" nbSpinnerSize="large"
+    nbSpinnerMessage="" style="
+   height: 50%;
+   width: 40%;
+">
+    <nb-card-header accent="success">
+      {{transl.logIn}}
+    </nb-card-header>
+    <nb-card-body class="example-items-rows">
+      <form [formGroup]="loginForm2" >
+        <input type="text" #name2 formControlName="name" nbInput placeholder="{{transl.name}}">
+        <div class="invalid-feedback" *ngIf="loginForm2.get('name')?.errors && loginForm2.get('name')?.touched">
+          {{name2.value.length ==0?'Name is Required':'Min Name length is 2'}}
+        </div>
+        <br>
+        <br>
+        <input type="password" #password2 formControlName="password" nbInput placeholder="{{transl.password}}">
+        <div class="invalid-feedback" *ngIf="loginForm2.get('password')?.errors && loginForm2.get('password')?.touched">
+          {{password2.value.length == 0?'Password is Required':'Min Password length is 2'}}
+        </div>
+        <br>
+        <br>
+        <br>
+        <br><br>
+        <br>
+        
+      </form>
+    </nb-card-body>
+    <nb-card-footer class="d-flex  justify-content-between">
+      <button nbButton type="submit" hero status="success" (click)="logina()">{{transl.logIn}}</button>
+      <button nbButton type="button" hero status="danger" (click)="Dopen=false">{{transl.cancel}}</button>
+    </nb-card-footer>
+  </nb-card>
+</div>
+<div *ngIf="!Dopen" class="d-flex justify-content-center align-items-center h-100">
+
+<nb-card  accent="info" size="small" [nbSpinner]="loading" nbSpinnerStatus="danger" nbSpinnerSize="large"
+  nbSpinnerMessage="" style="
+  height: 60%;
+  width: 50%;
+" [class]="'animate__animated animate__lightSpeedInLeft '">
+  <nb-card-header>
+    {{transl.signIn}}
+
+  </nb-card-header>
+  <nb-card-body class="example-items-rows">
+
+    <form [formGroup]="loginForm">
+      <input class="mb-2" type="text" #name formControlName="name" nbInput placeholder="{{transl.name}}">
+      <div class="invalid-feedback" *ngIf="loginForm.get('name')?.errors && loginForm.get('name')?.touched">
+        {{name.value.length ==0?'Name is Required':'Min Name length is 2'}}
+      </div>
+      <br>
+      <input class="mb-2" type="password" #password formControlName="password" nbInput
+        placeholder="{{transl.password}}">
+      <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
+        {{password.value.length ==0?'Password is Required':'Min Password length is 2'}}
+      </div>
+      <br>
+      <h3>{{transl.Your}} {{transl.image}}</h3>
+      <button nbButton hero status="success" class="form-control form-control-lg" uploadButton
+        [uploadComplete]="onComplete" [uploadOptions]="options" [uploader]="uploader" id="formFileLg"
+        type="file" style="
+        width: 300px;
+        height: 110px;
+    ">
+        <p class="m-0">
+          <img *ngIf="uploadedFileUrl" [src]="uploadedFileUrl" style="width: 100px; border: 1px solid white; border-radius: 5%;" alt="">
+
+          {{transl.upload}}
+          {{transl.Your}} {{transl.image}}
+        </p>
+      </button>
+      <br>
+      <br><br>
+      <br>
+      
+    </form>
+  </nb-card-body>
+  <nb-card-footer class="d-flex  justify-content-between">
+    <button (click)="login()" nbButton type="submit" hero status="success">{{transl.signIn}}</button>
+
+    <button nbButton type="button" hero status="info" (click)="openD()">{{transl.have}}
+      {{transl.account}} ? {{transl.logIn}} !</button>      
+  </nb-card-footer>
+</nb-card>  
+</div>

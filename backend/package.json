@@ -1,0 +1,31 @@
+{
+    "dependencies": {
+        "@types/node": "^20.8.6",
+        "alchemy-sdk": "^2.1.0",
+        "body-parser": "^1.20.0",
+        "deta": "^1.1.0",
+        "express": "^4.18.1",
+        "mkdir": "^0.0.2",
+        "mongodb": "^4.9.1",
+        "multer": "^1.4.5-lts.1",
+        "socket.io": "^4.7.2"
+    },
+    "engines": {
+        "node": "14.17.0"
+    },
+    "scripts": {
+        "start": "node app.js",
+        "postinstall": "echo 'meow'",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "name": "database",
+    "version": "1.0.0",
+    "description": "deploy",
+    "main": "app.js",
+    "keywords": [
+        "example",
+        "heroku"
+    ],
+    "author": "zizo",
+    "license": "ISC"
+}
